@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+chapter() {
+  echo
+  echo "### ${@} ###"
+}
+dependency() {
+  echo
+  echo "--> ${@}"
+}
+step() {
+  echo "${@}"
+}
+die() {
+  echo "${@}"
+  exit 1
+}
+check_success() {
+  if [ $? == 0 ]; then
+    step "Success."
+  else
+    step "Failed."
+  fi
+}
+function prepend() {
+  if [ -a $1 ]; then
+    if grep -q "${2}" "$1"; then
+      step Already linked.
+    else
+      step Linking
+      echo "$2" | cat - $1 > /tmp/catprepend && mv /tmp/catprepend $1
+      check_success
+    fi
+  else
+    step Linking
+    echo "$2" >> $1
+    check_success
+  fi
+}
+
+DOTFILES_PATH=$HOME/.dotfiles
+RESOURCES_PATH=$DOTFILES_PATH/resources
+
+chapter Setting up .dotfiles
+
+step Linking .bash_profile
+prepend "$HOME/.bash_profile" "source ~/.dotfiles/.bash_profile"
+echo
+
+step Setting Git config
+git config --global alias.st status
+git config --global alias.co checkout
+git config --global alias.df diff
+git config --global color.branch auto
+git config --global color.diff auto
+git config --global color.interactive auto
+git config --global color.status auto
+git config --global branch.autosetuprebase always
+git config --global core.editor "/usr/bin/vim"
+git config --global core.excludesfile $HOME/.dotfiles/.gitignore.global
+
+dependency Janus
+JANUS_PATH=$HOME/.vim/janus
+if [ -a $JANUS_PATH ]; then
+  step Already installed.
+else
+  step Installing
+  curl -Lo- http://bit.ly/janus-bootstrap | bash
+  check_success
+fi
+prepend "$HOME/.vimrc.after" ":so ~/.dotfiles/.vimrc"
+
+dependency Solarized
+SOLARIZED_PATH=$RESOURCES_PATH/solarized
+if [ -a $SOLARIZED_PATH ]; then
+  step Already loaded.
+else
+  step Loading archive
+  curl http://ethanschoonover.com/solarized/files/solarized.zip > $SOLARIZED_PATH.zip
+  unzip -d $RESOURCES_PATH $SOLARIZED_PATH.zip
+  check_success
+fi
