@@ -22,12 +22,17 @@ export EDITOR="vim"
 # EXTENSIONS
 #
 
+# git
+source ~/.dotfiles/lib/git_completion.bash
+source ~/.dotfiles/lib/git_parse_branch.bash
+
 # rbenv
 if [ -d $HOME/.rbenv ]; then
   export PATH="$HOME/.rbenv/bin:$PATH"
   eval "$(rbenv init -)"
 fi
 
-# git
-source ~/.dotfiles/lib/git_completion.bash
-source ~/.dotfiles/lib/git_parse_branch.bash
+# todo.txt
+if which -s todo.sh; then
+  source ~/.dotfiles/lib/todo.bash
+fi

@@ -79,3 +79,16 @@ else
   unzip -d $RESOURCES_PATH $SOLARIZED_PATH.zip
   check_success
 fi
+
+step Configure todo.txt
+TODO_TXT_CONFIG_PATH=$HOME/.todo.cfg
+if which -s todo.sh; then
+  if [ -a $TODO_TXT_CONFIG_PATH ]; then
+    step Already linked.
+  else
+    ln -s $DOTFILES_PATH/.todo.cfg $TODO_TXT_CONFIG_PATH
+    check_success
+  fi
+else
+  step todo.txt is not installed.
+fi
