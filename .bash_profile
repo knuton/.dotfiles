@@ -22,6 +22,11 @@ fi
 
 export EDITOR="vim"
 
+# user binaries
+if [ -d $HOME/bin ]; then
+  export PATH="$HOME/bin:$PATH"
+fi
+
 #
 # EXTENSIONS
 #
