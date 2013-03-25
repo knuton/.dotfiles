@@ -75,6 +75,7 @@ if [ -a $SOLARIZED_PATH ]; then
   step Already loaded.
 else
   step Loading archive
+  mkdir -p $RESOURCES_PATH
   curl http://ethanschoonover.com/solarized/files/solarized.zip > $SOLARIZED_PATH.zip
   unzip -d $RESOURCES_PATH $SOLARIZED_PATH.zip
   check_success
