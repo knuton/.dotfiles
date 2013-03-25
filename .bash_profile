@@ -11,6 +11,10 @@ export PS1='\[\033[G\]\033[38;5;214m\]\u \[\033[1;36m\]\w $(parse_git_branch)\n\
 
 alias coolio="echo ':)'"
 alias okay="cd && clear"
+if [ -d $HOME/Development ]; then
+  alias dev="cd ~/Development"
+fi
+
 
 #
 # ENV
