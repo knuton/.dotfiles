@@ -55,6 +55,7 @@ git config --global color.diff auto
 git config --global color.interactive auto
 git config --global color.status auto
 git config --global branch.autosetuprebase always
+git config --global push.default simple
 git config --global core.editor "/usr/bin/vim"
 git config --global core.excludesfile $HOME/.dotfiles/.gitignore.global
 
@@ -92,4 +93,17 @@ if which -s todo.sh; then
   fi
 else
   step todo.txt is not installed.
+fi
+
+step Configure tmux
+TMUX_CONFIG_PATH=$HOME/.tmux.conf
+if which -s tmux; then
+  if [ -a $TMUX_CONFIG_PATH ]; then
+    step Already linked.
+  else
+    ln -s $DOTFILES_PATH/.tmux.conf $TMUX_CONFIG_PATH
+    check_success
+  fi
+else
+  step tmux is not installed.
 fi
