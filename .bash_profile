@@ -42,6 +42,6 @@ if [ -d $HOME/.rbenv ]; then
 fi
 
 # todo.txt
-if which -s todo.sh; then
+if which todo.sh; then
   source ~/.dotfiles/lib/todo.bash
 fi
