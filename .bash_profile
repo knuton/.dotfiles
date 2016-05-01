@@ -45,3 +45,12 @@ fi
 if which todo.sh; then
   source ~/.dotfiles/lib/todo.bash
 fi
+
+# The Art of the Command Line
+function cli-tip() {
+  curl -s https://raw.githubusercontent.com/jlevy/the-art-of-command-line/master/README.md |
+    pandoc -f markdown -t html |
+    xmlstarlet fo --html --dropdtd |
+    xmlstarlet sel -t -v "(html/body/ul/li[count(p)>0])[$RANDOM mod last()+1]" |
+    xmlstarlet unesc | fmt -80
+}
