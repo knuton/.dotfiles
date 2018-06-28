@@ -84,7 +84,7 @@ fi
 
 step Configure todo.txt
 TODO_TXT_CONFIG_PATH=$HOME/.todo.cfg
-if which todo.sh; then
+if command -v todo.sh; then
   if [ -a $TODO_TXT_CONFIG_PATH ]; then
     step Already linked.
   else
@@ -97,7 +97,7 @@ fi
 
 step Configure tmux
 TMUX_CONFIG_PATH=$HOME/.tmux.conf
-if which tmux; then
+if command -v tmux; then
   if [ -a $TMUX_CONFIG_PATH ]; then
     step Already linked.
   else
