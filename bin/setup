@@ -47,7 +47,7 @@ prepend "$HOME/.bash_profile" "source ~/.dotfiles/.bash_profile"
 echo
 
 step Setting Git config
-git config --global alias.st status
+git config --global alias.st "!sh -c ' [ $GIT_PREFIX ] && cd $GIT_PREFIX; git status --short --branch $*; git --no-pager diff --color-words --no-color --diff-filter='AM' develop | grep TODO | git --no-pager grep -nFf - 2> /dev/null' -"
 git config --global alias.co checkout
 git config --global alias.df diff
 git config --global color.branch auto
@@ -56,7 +56,7 @@ git config --global color.interactive auto
 git config --global color.status auto
 git config --global branch.autosetuprebase always
 git config --global push.default simple
-git config --global core.editor "/usr/bin/vim"
+git config --global core.editor vim
 git config --global core.excludesfile $HOME/.dotfiles/.gitignore.global
 
 dependency Janus
