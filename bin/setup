@@ -47,7 +47,7 @@ prepend "$HOME/.bash_profile" "source ~/.dotfiles/.bash_profile"
 echo
 
 step Setting Git config
-git config --global alias.st "!sh -c ' [ $GIT_PREFIX ] && cd $GIT_PREFIX; git status --short --branch $*; git --no-pager diff --color-words --no-color --diff-filter='AM' develop | grep TODO | git --no-pager grep -nFf - 2> /dev/null' -"
+git config --global alias.st "!sh -c ' [ $GIT_PREFIX ] && cd $GIT_PREFIX; git status --short --branch $*; git --no-pager diff --color-words --no-color --diff-filter='AM' $(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@') | grep TODO | git --no-pager grep -nFf - 2> /dev/null' -"
 git config --global alias.co checkout
 git config --global alias.df diff
 git config --global color.branch auto
