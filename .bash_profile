@@ -15,8 +15,12 @@ if [ -d $HOME/Development ]; then
   alias dev="cd ~/Development"
 fi
 if command -v nix-shell >/dev/null; then
-  alias nix-shell='nix-shell --command "declare -x PS1=\"\[\033[G\]\033[38;5;214m\]\u \[\033[1;36m\]\w $(parse_git_branch)nix:\${name:-"❖"}\n\[\033[1;32m\]❖ \[\033[00m\]\"; return"'
+  NIX_SHELL_CMD=$(command -v nix-shell)
+  function nix-shell() {
+    $NIX_SHELL_CMD --command "declare -x PS1='\[\033[G\]\033[38;5;214m\]\u \[\033[1;36m\]\w \$(git rev-parse --abbrev-ref HEAD | echo \"git:\$(cat -) \")nix:\${name:-❖}\n\[\033[1;32m\]❖ \[\033[00m\]'; return" "$@"
+  }
 fi
+
 
 
 #
