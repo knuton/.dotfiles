@@ -20,6 +20,9 @@ if command -v nix-shell >/dev/null; then
     $NIX_SHELL_CMD --command "declare -x PS1='\[\033[G\]\033[38;5;214m\]\u \[\033[1;36m\]\w \$(git rev-parse --abbrev-ref HEAD | echo \"git:\$(cat -) \")nix:\${name:-❖}\n\[\033[1;32m\]❖ \[\033[00m\]'; return" "$@"
   }
 fi
+if command -v xclip >/dev/null; then
+  alias to-clipboard="xclip -selection clipboard"
+fi
 
 
 
