@@ -32,6 +32,8 @@ fi
 
 export EDITOR="vim"
 
+export HISTCONTROL=ignorespace
+
 # user binaries
 if [ -d $HOME/bin ]; then
   export PATH="$HOME/bin:$PATH"
